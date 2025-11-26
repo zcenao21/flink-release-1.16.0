@@ -488,6 +488,12 @@ public class NetworkBufferPool
 
             // Ensure that the number of required buffers can be satisfied.
             // With dynamic memory management this should become obsolete.
+            LOG.info("will21 allocate, total {}, this time query: {}, left {}, Thread:{}",
+                    totalNumberOfMemorySegments,
+                    numRequiredBuffers,
+                    totalNumberOfMemorySegments - numTotalRequiredBuffers,
+                    Thread.currentThread()
+            );
             if (numTotalRequiredBuffers + numRequiredBuffers > totalNumberOfMemorySegments) {
                 throw new IOException(
                         String.format(

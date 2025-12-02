@@ -5,15 +5,18 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.Random;
 
+/**
+ * 模拟kafka source.
+ */
 public class SimulateKafkaSource implements SourceFunction<Tuple2<String, Long>> {
-    boolean is_running = true;
+    boolean isRunning = true;
 
     Random rand = new Random();
 
     @Override
     public void run(SourceContext<Tuple2<String, Long>> ctx) throws Exception {
         long i = 1;
-        while (is_running) {
+        while (isRunning) {
             long eventTime = 1672502400000L+i*1000;
             //生成水印
             eventTime = eventTime-rand.nextInt(20)*1000;
@@ -27,6 +30,6 @@ public class SimulateKafkaSource implements SourceFunction<Tuple2<String, Long>>
 
     @Override
     public void cancel() {
-        is_running = false;
+        isRunning = false;
     }
 }

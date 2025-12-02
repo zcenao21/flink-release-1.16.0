@@ -29,7 +29,9 @@ import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
+import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.examples.wordcount.util.CLI;
 import org.apache.flink.streaming.examples.wordcount.util.WordCountData;
@@ -73,6 +75,9 @@ public class WordCountTestTTL {
         configuration.setInteger(RestOptions.PORT, 8081);
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment(configuration);
         env.setParallelism(10);
+        env.enableCheckpointing(60000);
+        env.getCheckpointConfig().enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+        env.setStateBackend(new FsStateBackend("file:///Users/will/tempdir/flink/cp"));
 
         env.setRuntimeMode(params.getExecutionMode());
 

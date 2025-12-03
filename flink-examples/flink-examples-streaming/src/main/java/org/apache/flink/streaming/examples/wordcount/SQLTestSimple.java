@@ -148,6 +148,9 @@ public class SQLTestSimple {
         }
     }
 
+    /**
+     * 定义聚合方式.
+     */
     public static class WeightAgg extends AggregateFunction<Double, Tuple2<Integer, Integer>> {
 
         @Override
@@ -166,6 +169,9 @@ public class SQLTestSimple {
         }
     }
 
+    /**
+     * wordcount定义.
+     */
     public static class WC {
         public String word;//hello
         public long frequency;//1
@@ -186,6 +192,9 @@ public class SQLTestSimple {
         }
     }
 
+    /**
+     * word count新定义.
+     */
     public static class WCRes {
         public String word;//hello
         public long frequency;//1

@@ -93,7 +93,6 @@ public class WindowSlidingWordCount21 {
 
                 outST.print("21");
 
-
         env.execute("WindowWordCount");
     }
 }

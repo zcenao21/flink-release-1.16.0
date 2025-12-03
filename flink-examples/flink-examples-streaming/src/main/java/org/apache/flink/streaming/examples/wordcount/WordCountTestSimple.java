@@ -129,6 +129,9 @@ public class WordCountTestSimple {
         }
     }
 
+    /**
+     * TTL设置，不过没效果，不对.
+     */
     public static final class TTLTokenizer extends RichFlatMapFunction<String, Tuple2<String, Integer>> {
         private static final long serialVersionUID = 1808329479322205953L;
         private transient ValueState<Tuple2<String, Integer>> sumRes;

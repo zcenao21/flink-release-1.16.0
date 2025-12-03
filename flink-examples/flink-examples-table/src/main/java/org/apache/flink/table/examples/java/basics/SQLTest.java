@@ -145,6 +145,9 @@ public class SQLTest {
         }
     }
 
+    /**
+     * WeightAgg.
+     */
     public static class WeightAgg extends AggregateFunction<Double, Tuple2<Integer, Integer>> {
 
         @Override
@@ -163,6 +166,9 @@ public class SQLTest {
         }
     }
 
+    /**
+     * WC.
+     */
     public static class WC {
         public String word;//hello
         public long frequency;//1

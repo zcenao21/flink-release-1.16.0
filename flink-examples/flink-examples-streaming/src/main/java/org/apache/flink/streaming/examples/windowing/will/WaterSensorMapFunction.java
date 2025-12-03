@@ -1,7 +1,10 @@
 package org.apache.flink.streaming.examples.windowing.will;
-import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.streaming.examples.windowing.will.WaterSensor;
 
+import org.apache.flink.api.common.functions.MapFunction;
+
+/**
+ * WaterSensorMapFunction.
+ */
 public class WaterSensorMapFunction implements MapFunction<String, WaterSensor> {
 	@Override
 	public WaterSensor map(String line) throws Exception {

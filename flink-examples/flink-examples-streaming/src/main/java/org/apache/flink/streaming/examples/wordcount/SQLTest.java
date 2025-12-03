@@ -157,6 +157,9 @@ public class SQLTest {
         }
     }
 
+    /**
+     * 权重计算定义.
+     */
     public static class WeightAgg extends AggregateFunction<Double, Tuple2<Integer, Integer>> {
 
         @Override
@@ -175,6 +178,9 @@ public class SQLTest {
         }
     }
 
+    /**
+     * 类定义.
+     */
     public static class WC {
         public String word;//hello
         public long frequency;//1

@@ -18,7 +18,6 @@
 package org.apache.flink.streaming.examples.wordcount;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
-import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
@@ -27,10 +26,8 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.examples.wordcount.util.CLI;
 import org.apache.flink.streaming.examples.wordcount.util.WordCountData;
-import org.apache.flink.table.api.Slide;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableResult;
-import org.apache.flink.table.api.Tumble;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.table.functions.AggregateFunction;
 import org.apache.flink.util.Collector;
@@ -67,7 +64,7 @@ import static org.apache.flink.table.api.Expressions.lit;
  *   <li>Write and use a user-defined function
  * </ul>
  */
-public class SQLTestHopWindow {
+public class SQLTestTumbleWindow {
 
     // *************************************************************************
     // PROGRAM
@@ -112,10 +109,10 @@ public class SQLTestHopWindow {
         tEnv.createTemporaryView("wordTable", table);
 
         String query = " select"
-                + " word,"
+                + " tumble_start(proctime(),interval '10' second),"
                 + " count(1)"
                 + " from wordTable"
-                + " group by word";
+                + " group by tumble(proctime(),interval '10' second)";
         TableResult tableRes = tEnv.executeSql(query);
 //        DataStream<WCRes> result = tEnv.toDataStream(tableRes, WCRes.class);
 //        result.print();

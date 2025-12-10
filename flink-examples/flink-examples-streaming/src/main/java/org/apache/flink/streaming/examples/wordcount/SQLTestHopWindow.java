@@ -33,7 +33,6 @@ import org.apache.flink.table.functions.AggregateFunction;
 import org.apache.flink.util.Collector;
 
 import static org.apache.flink.table.api.Expressions.$;
-import static org.apache.flink.table.api.Expressions.lit;
 
 /**
  * Implements the "WordCount" program that computes a simple word occurrence histogram over text
@@ -64,7 +63,7 @@ import static org.apache.flink.table.api.Expressions.lit;
  *   <li>Write and use a user-defined function
  * </ul>
  */
-public class SQLTestTumbleWindow {
+public class SQLTestHopWindow {
 
     // *************************************************************************
     // PROGRAM
@@ -109,10 +108,10 @@ public class SQLTestTumbleWindow {
         tEnv.createTemporaryView("wordTable", table);
 
         String query = " select"
-                + " hop_start(word_process_time,interval '5' second,interval '1' second) as hop_start,"
+                + " hop_start(word_process_time,interval '10' second,interval '5' second) as hop_start,"
                 + " count(1)"
                 + " from wordTable"
-                + " group by hop(word_process_time,interval '5' second,interval '1' second)";
+                + " group by hop(word_process_time,interval '10' second,interval '5' second)";
         TableResult tableRes = tEnv.executeSql(query);
 //        DataStream<WCRes> result = tEnv.toDataStream(tableRes, WCRes.class);
 //        result.print();

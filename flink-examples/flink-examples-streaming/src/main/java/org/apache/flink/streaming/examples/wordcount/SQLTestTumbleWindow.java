@@ -92,7 +92,7 @@ public class SQLTestTumbleWindow {
 //        env.getConfig().setAutoWatermarkInterval(500);
         // 设置自动产生输入，并设置输入格式
         DataStream<String> source = env
-                .socketTextStream("localhost",9999);
+                .socketTextStream("localhost",2121);
 //        text = source;
 //        StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);
         DataStream<Tuple2<String, Integer>> input = source
@@ -109,10 +109,10 @@ public class SQLTestTumbleWindow {
         tEnv.createTemporaryView("wordTable", table);
 
         String query = " select"
-                + " hop_start(word_process_time,interval '5' second,interval '1' second) as hop_start,"
+                + " tumble_start(proctime(),interval '10' second),"
                 + " count(1)"
                 + " from wordTable"
-                + " group by hop(word_process_time,interval '5' second,interval '1' second)";
+                + " group by tumble(proctime(),interval '10' second)";
         TableResult tableRes = tEnv.executeSql(query);
 //        DataStream<WCRes> result = tEnv.toDataStream(tableRes, WCRes.class);
 //        result.print();
